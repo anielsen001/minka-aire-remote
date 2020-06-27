@@ -1,0 +1,18 @@
+#+TITLE: Controlling several MinkaAire ceiling fan/lights with a Raspberry Pi
+
+* MinkaAire remote
+
+Disassembled the MinkaAire remove control. The buttons are effectively pushed when the two contacts are shorted by a springy contact. A relay will make the connection between the two contacts. 
+
+The remote is powered by a 12 V battery.
+
+* Relays
+
+Using a 5V relay module similar to this one. The important fact to note is that the Vcc is common and the pins must be set to ground in order to activate the relay.
+
+https://vetco.net/blog/how-to-hook-up-12v-8-relay-modules-without-a-micro-controller-vupn688/2019-02-20-13-36-32-0800
+
+* References
+
+there is a reddit thread here:
+https://www.reddit.com/r/raspberry_pi/comments/5pu96x/rf_remote_dip_switches/
