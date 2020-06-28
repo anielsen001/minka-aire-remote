@@ -12,6 +12,25 @@ Using a 5V relay module similar to this one. The important fact to note is that 
 
 https://vetco.net/blog/how-to-hook-up-12v-8-relay-modules-without-a-micro-controller-vupn688/2019-02-20-13-36-32-0800
 
+* Raspberry Pi
+
+Using a Raspberry Pi 2. The python gpiozero library and pinouts are found here:
+https://gpiozero.readthedocs.io/en/stable/recipes.html
+
+the pi itself can be powered off the 2 and 6 pins, instead of the micro usb port. 
+
+Install ipython3 for testing
+
+#+begin_src sh
+sudo apt install ipython3
+#+end_src
+
+** using relays with gpiozero
+
+https://gist.github.com/johnwargo/ea5edc8516b24e0658784ae116628277
+
+
+
 * References
 
 there is a reddit thread here:
