@@ -79,11 +79,13 @@ if __name__=='__main__':
 
     while True:
         # set fan on low for 10 minutes
+        print( 'Setting fan to low' )
         mr.fan_low()
         time.sleep( 600 )
 
-        # set fan off for 20 minutes
+        # set fan off for 50 minutes
+        print( 'Setting fan to off' )
         mr.fan_off()
-        time.sleep( 1200 )
+        time.sleep( 50*60 )
 
         # repeat, etc.
