@@ -6,6 +6,8 @@ Disassembled the MinkaAire remove control. The buttons are effectively pushed wh
 
 The remote is powered by a 12 V battery.
 
+These is no feedback from the fan to the remote, so we can enable remote control functions but there is no direct way to know if the fan received and acted upon the command. 
+
 * Relays
 
 Using a 5V relay module similar to this one. The important fact to note is that the Vcc is common and the pins must be set to ground in order to activate the relay.
@@ -14,10 +16,23 @@ https://vetco.net/blog/how-to-hook-up-12v-8-relay-modules-without-a-micro-contro
 
 * Raspberry Pi
 
+** Install useful tools and update raspbian
+
+#+begin_src sh
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+sudo apt install screen
+#+end_src
+
+** GPIO configuration
+
 Using a Raspberry Pi 2. The python gpiozero library and pinouts are found here:
 https://gpiozero.readthedocs.io/en/stable/recipes.html
 
 the pi itself can be powered off the 2 and 6 pins, instead of the micro usb port. 
+
+** python configuration
 
 Install ipython3 for testing
 
@@ -29,6 +44,16 @@ sudo apt install ipython3
 
 https://gist.github.com/johnwargo/ea5edc8516b24e0658784ae116628277
 
+** Install and configure flask for server
+
+Flask was already present as part of python3.
+Flask app must be run with sudo 
+
+** Use GPIO with Flask
+
+http://mattrichardson.com/Raspberry-Pi-Flask/
+
+https://randomnerdtutorials.com/raspberry-pi-web-server-using-flask-to-control-gpios/
 
 
 * References
