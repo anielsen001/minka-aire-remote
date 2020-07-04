@@ -67,6 +67,18 @@ http://mattrichardson.com/Raspberry-Pi-Flask/
 
 https://randomnerdtutorials.com/raspberry-pi-web-server-using-flask-to-control-gpios/
 
+** Flask with Multithreading
+
+In addition to the simple remote control functions, we would like to be able to run programs with the fan. For example, cycle the fan on and off periodically, or have the lights come on add off using a schedule. 
+
+This scheduled programming should run in a separate thread on the Raspberry Pi from the Flask app so that they don't block. 
+
+Here are some interesting resources:
+
+https://medium.com/python-pandemonium/raspberry-pi-christmas-tree-light-show-controlling-gpio-pins-over-the-web-d4599a7b928c
+
+https://github.com/johndavidsimmons/xmas_lights
+
 * Power supply
 
 The MinkaAire remote wants 12V and the Rasperry Pi wants a 5V power supply. A PSU with a Molex connector will provide both. A molex to SATA adaptor provides a covenient breakout connector for both voltages. 
