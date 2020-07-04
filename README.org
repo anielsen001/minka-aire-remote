@@ -8,6 +8,10 @@ The remote is powered by a 12 V battery.
 
 These is no feedback from the fan to the remote, so we can enable remote control functions but there is no direct way to know if the fan received and acted upon the command. 
 
+[[img/minka_aire_remote_front.jpg][Picture of MinkaAire remote circuit board front]]
+
+[[img/minka_aire_remote_back.jpg][Picture of MinkaAire remote circuit board back]]
+
 * Relays
 
 Using a 5V relay module similar to this one. The important fact to note is that the Vcc is common and the pins must be set to ground in order to activate the relay.
