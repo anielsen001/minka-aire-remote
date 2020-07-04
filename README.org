@@ -53,6 +53,10 @@ Flask app must be run with sudo
 
 ** Use GPIO with Flask
 
+The code here creates a basic flask application that serves a ceiling fan remote control.
+
+[[img/basic_remote_flask.png]]
+
 http://mattrichardson.com/Raspberry-Pi-Flask/
 
 https://randomnerdtutorials.com/raspberry-pi-web-server-using-flask-to-control-gpios/
