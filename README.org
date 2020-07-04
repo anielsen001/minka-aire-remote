@@ -72,6 +72,7 @@ From [[https://en.wikipedia.org/wiki/Molex_connector][Wikipedia]] these are the 
 As measured, I get 12.3V and 5.1V
 
 
+
 * References
 
 there is a reddit thread here:
