@@ -79,6 +79,15 @@ https://medium.com/python-pandemonium/raspberry-pi-christmas-tree-light-show-con
 
 https://github.com/johndavidsimmons/xmas_lights
 
+
+** mechanical drawing
+
+[[https://www.raspberrypi.org/documentation/hardware/raspberrypi/mechanical/README.md][Official Raspberry Pi drawings]]
+
+[[https://learn.adafruit.com/introducing-the-raspberry-pi-model-b-plus-plus-differences-vs-model-b/mounting-holes][Adafruit Drawings]]
+
+[[img/raspberry_pi_dims.png][Picture of Raspberry Pi 3B+ from Adafruit]]
+
 * Power supply
 
 The MinkaAire remote wants 12V and the Rasperry Pi wants a 5V power supply. A PSU with a Molex connector will provide both. A molex to SATA adaptor provides a covenient breakout connector for both voltages. 
