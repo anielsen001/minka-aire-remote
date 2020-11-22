@@ -6,6 +6,7 @@ import time
 import logging
 
 app = Flask(__name__)
+
 keys = ['Mode','on_for','off_for']
 
 @app.route("/")
@@ -21,7 +22,7 @@ def savedata(fan_status={}, outdata='fan_status.txt'):
     with open(outdata,'w') as f:
         for key in keys:
             try:
-                value = fan_status[key]
+                value = fan_status[key][0]
             except:
                 value = ""
             f.write(str(value))
@@ -42,30 +43,20 @@ def main_button():
     #Moving forward code
     #print(request.form)
     button = request.form.to_dict(flat=False)
+    fan_status = button
     savedata(button)
     print(button)
     if  'on_forBtn' in button:
         #fan_status = mfam.get_sensor_status()
         a = 5
-    elif 'off_for_Btn' in button:
+    elif 'off_forBtn' in button:
         #mfam_status = mfam.get_mfam_status()
         message = "Please send data"
         print(message)
     # Fan Threading
     #at = threading.Thread(target=mfam.main, args=(float(h),))
     # at.start()
-    fan_status = button
     return render_template('main.html', fan_status=fan_status)
-
-
-
-
-@app.route("/send/")
-def send_data():
-    #ToDO
-    a=4
-
-
 
 
 if __name__ == "__main__":
