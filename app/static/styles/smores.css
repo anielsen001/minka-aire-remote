@@ -1,0 +1,181 @@
+@font-face {
+  font-family: "Gotham";
+  src: local("Gotham"), url("./fonts/Gotham-Medium.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Gotham-Book";
+  src: local("Gotham-Book"), url("./fonts/Gotham-Book.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Gotham-Italic";
+  src: local("Gotham-Italic"), url("./fonts/Gotham-MediumIta.otf") format("opentype");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: "Gotham-Bold";
+  src: local("Gotham-Bold"), url("./fonts/Gotham-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: bold; }
+
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+
+html {
+  padding: 10px;
+  align-content: center;
+}
+
+body {
+  margin: 5px;
+  padding:10px;
+  min-height: 700px;
+  background: #FDF8FA,#F8FCFD;
+  background-color: radial-gradient(circle , #Fdf8fa , #f8fcfd )
+  background-color: -moz-radial-gradient(center, circle cover, #FDF8FA  0%,#F8FCFD 100%);
+  background-color: -webkit-radial-gradient(center, circle cover, #FDF8FA  0%,#F8FCFD 100%);
+  background-color: -o-radial-gradient(center, circle cover,  #FDF8FA  0%,#F8FCFD 100%);
+  background-color: -ms-radial-gradient(center, circle cover,  #FDF8FA  0%,#F8FCFD 100%);
+  background-color: radial-gradient(center, circle cover, #FDF8FA  0%,#F8FCFD 100%);
+  /*background-image: url('../images/DidactexLogo_344_194.png?1');
+  background-image: url('../images/DidactexLogo_344_194.png?1') , radial-gradient(circle , #E0E3E3 , #f8fcfd ); /* W3C */;
+  background-image: url('../images/smores.jpg?1');*/
+  background-image: url('../images/smores.jpg?1') , radial-gradient(circle , #E0E3E3 , #f8fcfd ); /* W3C */;
+  background-size: 12%, 6%, 100%;
+  background-repeat: no-repeat;
+  background-position: 2% 3%, 2% 3%, center;
+
+}
+
+
+/*********************************************
+ * HEADERS  color: #F05B62;
+ *********************************************/
+h1, h2, h3, h4,  h5,  h6 {
+  margin: 0 0 10px 0;
+  font-family: 'Gotham-Bold', Impact, sans-serif;
+  font-weight: normal;
+  line-height: 0.9em;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-shadow: none;
+  word-wrap: break-word; }
+
+h1 {
+  font-size: 2.0em;
+  color: #002644;
+  margin-left: 12%;
+  margin-top: 10px;
+  text-shadow: 0px 0px 16px rgba(0, 0, 0, 0.12);
+  align-content: center;
+}
+
+
+h2 {
+  font-size: 1.75em;
+  color:  #15727E;
+  margin-left: 10%;
+}
+
+h3 {
+  font-size: 1.5em;
+  color: #6194bb;
+  text-shadow: 10px 10px 16px rgba(10, 0, 0, 0.2);
+}
+
+h4 {
+  font-size: 1.2em;
+  color: #698751; }
+
+
+select {
+    padding: 5px 10px;
+    font-size: 22px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #002644;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px #999;
+    align-items: flex-end;
+  }
+
+select:hover {background-color: #6194bb}
+
+
+
+button {
+      padding: 5px 10px;
+      font-size: 22px;
+      text-align: center;
+      cursor: pointer;
+      outline: none;
+      color: #fff;
+      background-color: #002644;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 5px #999;
+      align-items: flex-end;
+  }
+
+button:hover {background-color: #6194bb}
+
+button:active {
+      background-color: #6194bb;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+}
+
+/*********************************************
+   * Table
+ *********************************************/
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+  }
+
+  td, th {
+    border: 1px solid #6194bb;
+    text-align: left;
+    padding: 2px;
+  }
+
+  tr:first-child {
+    background-color: #dddddd;
+}
+
+/******************************
+* Columns
+************************************/
+#left {
+  left:-5.33%;
+  text-align: left;
+  float: left;
+  width:50%;
+  z-index:-10;
+}
+
+#right {
+  left:31.25%;
+  top: 75px;
+  float: right;
+  text-align: left;
+  z-index:-5;
+  width:50%;
+
+  .twocolumn {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     grid-gap: 10px;
+     text-align: right;
+  }
+}
