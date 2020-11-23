@@ -62,7 +62,7 @@ def main_button():
 
 
 if __name__ == "__main__":
-    app.run(host="192.168.88.10", port=5342)
+    app.run(host="192.168.2.107", port=5342)
 
 
 
