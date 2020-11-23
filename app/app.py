@@ -5,6 +5,8 @@ import threading
 import time
 import logging
 
+import minka_remote
+
 app = Flask(__name__)
 
 keys = ['Mode','on_for','off_for']
@@ -54,13 +56,13 @@ def main_button():
         message = "Please send data"
         print(message)
     # Fan Threading
-    #at = threading.Thread(target=mfam.main, args=(float(h),))
-    # at.start()
+    at = threading.Thread(target=minka_remote.main_file, args=('fan_status.txt',))
+    at.start()
     return render_template('main.html', fan_status=fan_status)
 
 
 if __name__ == "__main__":
-    app.run(host="192.168.2.191", port=5342)
+    app.run(host="192.168.2.107", port=5342)
 
 
 

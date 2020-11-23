@@ -1,7 +1,6 @@
 # create a minka-aire remote class
 import gpiozero
 import time
-import datetime
 
 def create_relay( relay_pin ):
     """ create a relay object from the gpiozero module """
@@ -72,21 +71,5 @@ class MinkaAireRemote( object ):
         turn off the fan
         """
         self.push_button( self.fan_high_relay )
+
         
-
-if __name__=='__main__':
-
-    mr = MinkaAireRemote()
-
-    while True:
-        # set fan on low for 10 minutes
-        print( str(datetime.datetime.now()) + ' : Setting fan to low' )
-        mr.fan_low()
-        time.sleep( 600 )
-
-        # set fan off for 50 minutes
-        print( str(datetime.datetime.now()) + ' : Setting fan to off' )
-        mr.fan_off()
-        time.sleep( 50*60 )
-
-        # repeat, etc.
