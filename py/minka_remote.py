@@ -28,11 +28,11 @@ if __name__=='__main__':
     if time_on is None:
         time_on = 600
     else:
-        int(time_on)
+        time_on = int(time_on)
     if time_off is None:
         time_off = 3000
     else:
-        int(time_off)
+        time_off = int(time_off)
 
     print('on for {0} seconds, off for {1} seconds'.format(time_on,time_off))
     
