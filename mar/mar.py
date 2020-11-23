@@ -1,7 +1,6 @@
 # create a minka-aire remote class
 import gpiozero
 import time
-import datetime
 
 def create_relay( relay_pin ):
     """ create a relay object from the gpiozero module """
