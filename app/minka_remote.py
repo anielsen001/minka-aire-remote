@@ -25,11 +25,11 @@ from docopt import docopt
 import sys
 USEGPIO = True
 
+mr = MinkaAireRemote()
+
 def main(time_on, time_off, fan_speed):
 
     print('{0} on for {1} seconds, off for {2} seconds'.format(fan_speed,time_on,time_off))
-    
-    mr = MinkaAireRemote()
 
     while True:
         # set fan on low for 10 minutes
