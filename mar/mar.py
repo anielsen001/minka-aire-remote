@@ -72,4 +72,28 @@ class MinkaAireRemote( object ):
         """
         self.push_button( self.fan_high_relay )
 
+    def fan(self,state):
+        """
+        change the state of the fan
+        
+        Inputs:
+        ======
+        state :: should be one of 'OFF', 'LOW', 'MED', 'HIGH'
+
+        Raises:
+        ======
+        ValueError if state is not one of 'OFF', 'LOW', 'MED', 'HIGH'
+        """
+
+        if 'OFF' in state:
+            self.fan_off()
+        elif 'LOW' in state:
+            self.fan_low()
+        elif 'MED' in state:
+            self.fan_med()
+        elif 'HIGH' in state:
+            self.fan_high()
+        else:
+            raise ValueError()
+
         
