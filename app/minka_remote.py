@@ -23,12 +23,14 @@ from mar import MinkaAireRemote
 from docopt import docopt
 
 import sys
-USEGPIO = False
+USEGPIO = True
 
 def main(time_on, time_off, fan_speed):
+
+    print('0} on for {1} seconds, off for {2} seconds'.format(fan_speed,time_on,time_off))
     
     mr = MinkaAireRemote()
-    
+
     while True:
         # set fan on low for 10 minutes
         print( str(datetime.datetime.now()) + ' : Setting fan to low' )
@@ -52,8 +54,8 @@ def main_file(filename):
 def parse_file(filename):
     with open(filename) as f:
         fan_speed = f.readline().strip()
-        time_on = int(f.readline().strip())
-        time_off = int(f.readline().strip())
+        time_on = int(f.readline().strip())/60
+        time_off = int(f.readline().strip()/60
     return time_on, time_off, fan_speed
 
     
