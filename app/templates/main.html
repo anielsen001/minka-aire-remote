@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Fan Main</title>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/smores.css') }}">
+</head>
+<body>
+
+<h1>Smores's
+  House Fan Control</h1>
+<h2></h2>
+<p> This control turns the house fan:
+  on for x minutes and
+  sleeps for y minutes.
+</p>
+<h2>Current Fan Status: </h2>
+{% if fan_status == "Error"  %}
+    <h3>Fan not connected
+    </br>
+      Phone's <b>WIFI</b> needs to be set to
+    </br>
+    <b>fan's wifi</b>
+    </br>
+    </h3>
+
+{% else %}
+  <table>
+    {% set keys_to_display = ["Mode", "on_for", "off_for"] %}
+    {% for key in  keys_to_display  %}
+    <tr>
+          <th> {{ key }} </th>
+            <th> {{ fan_status[key][0] }} </td>
+    </tr>
+    {% endfor %}
+  </table>
+  </br>
+
+  <form id="package_form" action="/" method="post">
+    <h4> Fan On / Off cycle in Minutes </h4>
+    <table>
+      {% if fan_status["on_for"] == ""  %}
+          <tr>
+            <th><input type = "text" name = "on_for"  hint = "Enter number of minutes"/></th>
+            <td><input type = "text" name = "off_for" hint = "Enter number of minutes"/></td>
+
+      {% else %}
+          <tr>
+              <th><input type = "text" name = "on_for" value={{ fan_status["on_for"][0] }} hint = "Enter number of minutes"/></th>
+              <td><input type = "text" name = "off_for" value={{ fan_status["off_for"][0] }} hint = "Enter number of minutes"/></td>
+
+      {% endif %}
+        </tr>
+      </table>
+
+
+  </br>
+  </br>
+
+    <select class="form-control" id="fan" name="Mode">
+      <option value="LOW">Low Speed</option>
+      <option value="HIGH">High Speed</option>
+      <option value="MED">Med Speed</option>
+      <option value="LOW">Low Speed</option>
+      <option value="OFF">Fan OFF</option>
+  </select>
+  </br>
+
+
+  </br>
+    <button name="Light On" type="submit">Light On / Submit</button>
+    <button name="Light Off" type="submit">Light Off / Submit</button>
+  </form>
+
+{% endif %}
+
+</body>
+</html>
