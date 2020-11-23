@@ -25,7 +25,7 @@ def savedata(fan_status={}, outdata='fan_status.txt'):
                 value = fan_status[key][0]
             except:
                 value = ""
-            f.write(str(value))
+            f.write(str(value)+"\n")
     #Done with writing
 
 
@@ -60,7 +60,7 @@ def main_button():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="192.168.2.191", port=5342)
 
 
 
