@@ -2,11 +2,12 @@
 run the minka-aire ceiling fan with a configurable cycle
 
 Usage:
-  minka_remote.py [ON] [OFF]
+  minka_remote.py [ON] [OFF] [FILE]
 
 Arguments:
   ON   time on in secconds [600]
   OFF  time off in seconds [3000]
+  FILE  file with fan configuration settings
 
 """
 from __future__ import print_function
@@ -33,6 +34,13 @@ if __name__=='__main__':
         time_off = 3000
     else:
         time_off = int(time_off)
+
+    if not args['FILE'] is None:
+        setfile = args['FILE']
+        with open(setfile) as f:
+            fan_speed = f.readline()
+            time_on = int(f.readline())
+            time_off = int(f.readline())
 
     print('on for {0} seconds, off for {1} seconds'.format(time_on,time_off))
     
