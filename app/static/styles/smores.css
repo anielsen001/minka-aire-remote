@@ -116,7 +116,7 @@ select:hover {background-color: #6194bb}
 
 button {
       padding: 5px 10px;
-      font-size: 3.0em;
+      font-size: 3.1cem;
       text-align: center;
       cursor: pointer;
       outline: none;
@@ -142,7 +142,7 @@ button:active {
 
  input {
      font-family: arial, sans-serif;
-     font-size: 2.75em;
+     font-size: 2.5em;
      border-collapse: collapse;
      width: 40%;
      margin-left: 10%;
