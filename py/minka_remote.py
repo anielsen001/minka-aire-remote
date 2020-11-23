@@ -1,21 +1,45 @@
+"""
+run the minka-aire ceiling fan with a configurable cycle
+
+Usage:
+  minka_remote.py [ON] [OFF]
+
+Arguments:
+  ON   time on in secconds [600]
+  OFF  time off in seconds [3000]
+
+"""
 from __future__ import print_function
+
 import datetime
 import time
+
 from mar import MinkaAireRemote
+
+from docopt import docopt
 
 if __name__=='__main__':
 
+    args = docopt(__doc__)
+    print(args)
+
+    time_on = args['ON']
+    time_off = args['OFF']
+
+    if time_on is None: time_on = 600
+    if time_off is None: time_off = 3000
+    
     mr = MinkaAireRemote()
 
     while True:
         # set fan on low for 10 minutes
         print( str(datetime.datetime.now()) + ' : Setting fan to low' )
         mr.fan_low()
-        time.sleep( 600 )
+        time.sleep( time_on )
 
         # set fan off for 50 minutes
         print( str(datetime.datetime.now()) + ' : Setting fan to off' )
         mr.fan_off()
-        time.sleep( 50*60 )
+        time.sleep( time_off )
 
         # repeat, etc.
