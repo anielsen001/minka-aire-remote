@@ -21,13 +21,14 @@ from docopt import docopt
 if __name__=='__main__':
 
     args = docopt(__doc__)
-    print(args)
 
     time_on = args['ON']
     time_off = args['OFF']
 
     if time_on is None: time_on = 600
     if time_off is None: time_off = 3000
+
+    print('on for {0} seconds, off for {1} seconds'.format(time_on,time_off))
     
     mr = MinkaAireRemote()
 
