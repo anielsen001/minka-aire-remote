@@ -33,8 +33,8 @@ def main(time_on, time_off, fan_speed):
 
     while True:
         # set fan on low for 10 minutes
-        print( str(datetime.datetime.now()) + ' : Setting fan to low' )
-        mr.fan_low()
+        print( str(datetime.datetime.now()) + ' : Setting fan to {0}'.format(fan_speed) )
+        mr.fan(fan_speed)
         time.sleep( time_on )
 
         # set fan off for 50 minutes
