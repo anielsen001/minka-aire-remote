@@ -65,7 +65,7 @@ def opendata(fan_status={}, outdata='fan_status.txt'):
             fan_status[k]=[f.readline()]
     return fan_status
 
-def FanThread(threading.Thread):
+class FanThread(threading.Thread):
     """
     create a fan thread
     """
