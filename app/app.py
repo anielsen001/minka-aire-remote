@@ -12,6 +12,11 @@ app = Flask(__name__)
 
 keys = ['Mode','on_for','off_for']
 
+# create a list of fan controller threads, should be a global
+fan_threads=list()
+
+from mar import MinkaAireRemote
+mr = MinkaAireRemote()
 
 def get_ip():
     """
@@ -60,17 +65,61 @@ def opendata(fan_status={}, outdata='fan_status.txt'):
             fan_status[k]=[f.readline()]
     return fan_status
 
+def FanThread(threading.Thread):
+    """
+    create a fan thread
+    """
+    def __init__(self, filename):
 
+        time_on, time_off, fan_speed = minka_remote.parse_file(filename)
+        
+        self.time_on = time_on
+        self.time_off = time_off
+        self.fan_speed = fan_speed
+
+        self.stop = False
+
+    def run(self):
+
+        time_on = self.time_on
+        time_off = self.time_off
+        fan_speed = self.fan_speed
+
+        print('{0} on for {1} seconds, off for {2} seconds'.format(fan_speed,time_on,time_off))
+
+        while True:
+            # set fan on low for 10 minutes
+            print( str(datetime.datetime.now()) + ' : Setting fan to {0}'.format(fan_speed) )
+            mr.fan(fan_speed)
+            time.sleep( time_on )
+
+            # after sleep, check if stop set, if so, return
+            if self.stop:
+                return
+           
+            # set fan off for 50 minutes
+            print( str(datetime.datetime.now()) + ' : Setting fan to off' )
+            mr.fan_off()
+            time.sleep( time_off )        
+
+            # after sleep, check if stop set, if so, return
+            if self.stop:
+                return
 
 
 @app.route("/", methods=['POST'])
 def main_button():
     #Moving forward code
-    #print(request.form)
+    #print(request.form) 
     button = request.form.to_dict(flat=False)
     fan_status = button
     savedata(button)
     print(button)
+
+    # stop existing threads, by setting stop flag
+    for et in fan_threads:
+        et.stop = True
+    
     if  'on_forBtn' in button:
         #fan_status = mfam.get_sensor_status()
         a = 5
@@ -78,9 +127,18 @@ def main_button():
         #mfam_status = mfam.get_mfam_status()
         message = "Please send data"
         print(message)
+        
     # Fan Threading
-    at = threading.Thread(target=minka_remote.main_file, args=('fan_status.txt',))
-    at.start()
+    ft = FanThread('fan_status.txt')
+    #at = threading.Thread(target=minka_remote.main_file, args=('fan_status.txt',))
+
+    # add the thread to the the fan_threads list
+    fan_threads.append(ft)
+
+    # start the thread
+    ft.start()
+
+    # return
     return render_template('main.html', fan_status=fan_status)
 
 
