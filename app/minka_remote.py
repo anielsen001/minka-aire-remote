@@ -27,7 +27,7 @@ USEGPIO = True
 
 mr = MinkaAireRemote()
 
-def main(time_on, time_off, fan_speed):
+def main(time_on, time_off, fan_speed, stop = lambda: False):
 
     print('{0} on for {1} seconds, off for {2} seconds'.format(fan_speed,time_on,time_off))
 
@@ -37,19 +37,27 @@ def main(time_on, time_off, fan_speed):
         mr.fan(fan_speed)
         time.sleep( time_on )
 
+        # after waking from sleep, see if we should stop
+        if stop():
+            break
+
         # set fan off for 50 minutes
         print( str(datetime.datetime.now()) + ' : Setting fan to off' )
         mr.fan_off()
         time.sleep( time_off )
 
+        # after waking from sleep, see if we should stop
+        if stop():
+            break
+
         # repeat, etc.
 
-def main_file(filename):
+def main_file(filename, stop):
     """
     run the main with a filename argument
     """
     time_on, time_off, fan_speed = parse_file(filename)
-    main(time_on, time_off, fan_speed)
+    main(time_on, time_off, fan_speed, stop = stop)
 
 def parse_file(filename):
     with open(filename) as f:
