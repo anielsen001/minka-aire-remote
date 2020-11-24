@@ -4,6 +4,9 @@ import os
 import threading
 import time
 import logging
+import socket
+
+import minka_remote
 
 app = Flask(__name__)
 keys = ['Mode','on_for','off_for']
@@ -15,6 +18,26 @@ def test(h, stop):
         if stop():
             break
 
+def get_ip():
+    """
+    find the primary IP address of the machine we are running on and 
+    return as a string
+
+    will return 127.0.0.1 (locahost) if none is found
+    """
+    # from here:
+    # https://stackoverflow.com/questions/166506/finding-local-ip-addresses-using-pythons-stdlib
+    
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # doesn't even have to be reachable
+        s.connect(('10.255.255.255', 1))
+        IP = s.getsockname()[0]
+    except Exception:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    return IP
 
 @app.route("/")
 def main():
@@ -70,14 +93,14 @@ def main_button():
     except:
         print("No thread")
     stop_thread = False
-    at = threading.Thread(target=test, args=(button['on_for'],lambda : stop_thread))
+    # Fan Threading
+    at = threading.Thread(target=minka_remote.main_file, args=('fan_status.txt',lambda : stop_thread))
     at.start()
     return render_template('main.html', fan_status=fan_status)
 
 
 if __name__ == "__main__":
-    #app.run(host="192.168.2.191", port=5342)
-    app.run()
+    app.run(host=get_ip(), port=5342)
 
 
 
