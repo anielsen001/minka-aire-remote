@@ -39,6 +39,7 @@ def main(time_on, time_off, fan_speed, stop = lambda: False):
 
         # after waking from sleep, see if we should stop
         if stop():
+            print('thread exiting')
             break
 
         # set fan off for 50 minutes
@@ -48,6 +49,7 @@ def main(time_on, time_off, fan_speed, stop = lambda: False):
 
         # after waking from sleep, see if we should stop
         if stop():
+            print('thread exiting')
             break
 
         # repeat, etc.
