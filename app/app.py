@@ -9,9 +9,14 @@ import socket
 import minka_remote
 
 app = Flask(__name__)
-
 keys = ['Mode','on_for','off_for']
 
+def test(h, stop):
+    while True:
+        time.sleep(.5)
+        print("Now on ",h)
+        if stop():
+            break
 
 def get_ip():
     """
@@ -61,11 +66,13 @@ def opendata(fan_status={}, outdata='fan_status.txt'):
     return fan_status
 
 
-
+stop_thread=True
+#at = threading.Thread(target=test, args=("Test",lambda : stop_thread) )
 
 @app.route("/", methods=['POST'])
 def main_button():
-    #Moving forward code
+    global at
+    global stop_thread
     #print(request.form)
     button = request.form.to_dict(flat=False)
     fan_status = button
@@ -73,13 +80,21 @@ def main_button():
     print(button)
     if  'on_forBtn' in button:
         #fan_status = mfam.get_sensor_status()
+
         a = 5
     elif 'off_forBtn' in button:
         #mfam_status = mfam.get_mfam_status()
+
         message = "Please send data"
         print(message)
+    try:
+        stop_thread = True
+        at.join()
+    except:
+        print("No thread")
+    stop_thread = False
     # Fan Threading
-    at = threading.Thread(target=minka_remote.main_file, args=('fan_status.txt',))
+    at = threading.Thread(target=minka_remote.main_file, args=('fan_status.txt',lambda : stop_thread))
     at.start()
     return render_template('main.html', fan_status=fan_status)
 
