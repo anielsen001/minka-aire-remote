@@ -27,6 +27,42 @@ USEGPIO = True
 
 mr = MinkaAireRemote()
 
+def sleep_check(sleep_time, check_interval, stop=lambda: False):
+    """
+    sleep for an overall period of time, waking up to check for a 
+    stop semaphore to be set, at a given interval
+     
+    Inputs:
+    ======
+    sleep_time :: overall time to sleep in seconds
+    check_interval :: period before semaphore checking, seconds
+    stop :: semaphore function, returns True when time to exit
+
+    Returns:
+    =======
+    None
+    """
+
+    # get initial time when starting
+    start_time = time.time()
+
+    while True:
+    
+        # check for stop, if present return
+        if stop():
+            return None
+
+        # sleep for check interval
+        time.sleep(check_interval)
+
+        # get current time
+        curr_time = time.time()
+
+        # exit criteria is when current time i
+        if curr_time -start_time >= sleep_time:
+            return None
+        
+    
 def main(time_on, time_off, fan_speed, stop = lambda: False):
 
     print('{0} on for {1} seconds, off for {2} seconds'.format(fan_speed,time_on,time_off))
@@ -35,7 +71,7 @@ def main(time_on, time_off, fan_speed, stop = lambda: False):
         # set fan on low for 10 minutes
         print( str(datetime.datetime.now()) + ' : Setting fan to {0}'.format(fan_speed) )
         mr.fan(fan_speed)
-        time.sleep( time_on )
+        sleep_check( time_on, 1, stop )
 
         # after waking from sleep, see if we should stop
         if stop():
@@ -45,7 +81,7 @@ def main(time_on, time_off, fan_speed, stop = lambda: False):
         # set fan off for 50 minutes
         print( str(datetime.datetime.now()) + ' : Setting fan to off' )
         mr.fan_off()
-        time.sleep( time_off )
+        sleep_check( time_off, 1, stop )
 
         # after waking from sleep, see if we should stop
         if stop():
