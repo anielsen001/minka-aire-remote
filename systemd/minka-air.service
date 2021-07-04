@@ -1,0 +1,10 @@
+[Unit]
+Description=MinkaAire Remote
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/home/pi/proj/minka-aire-remote/start.sh > /home/pi/proj/minka-aire-remote/startup.log 2>&1
+
+[Install]
+WantedBy=multi-user.target
