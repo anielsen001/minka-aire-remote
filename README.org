@@ -107,6 +107,11 @@ As measured, I get 12.3V and 5.1V
 Here's a photo of the prototype setup on the work bench:
 [[img/proto_board_setup_small.jpg]]
 
+* Related projects
+
+[[https://www.youtube.com/watch?v=3lGU7PjJM7k&ab_channel=River%27sEducationalChannel]]
+[[https://www.youtube.com/watch?v=3lGU7PjJM7k&t=0s]]
+
 * References
 
 there is a reddit thread here:
