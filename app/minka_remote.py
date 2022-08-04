@@ -14,12 +14,9 @@ Options:
 
 """
 from __future__ import print_function
-
 import datetime
 import time
-
 from mar import MinkaAireRemote
-
 from docopt import docopt
 
 import sys
@@ -47,7 +44,6 @@ def sleep_check(sleep_time, check_interval, stop=lambda: False):
     start_time = time.time()
 
     while True:
-    
         # check for stop, if present return
         if stop():
             return None
@@ -59,17 +55,18 @@ def sleep_check(sleep_time, check_interval, stop=lambda: False):
         curr_time = time.time()
 
         # exit criteria is when current time i
-        if curr_time -start_time >= sleep_time:
+        if curr_time - start_time >= sleep_time:
             return None
         
     
 def main(time_on, time_off, fan_speed, stop = lambda: False):
 
-    print('{0} on for {1} seconds, off for {2} seconds'.format(fan_speed,time_on,time_off))
+    print('{0} on for {1} seconds, off for {2} seconds'.format(fan_speed, time_on, time_off))
 
     while True:
         # set fan on low for 10 minutes
         print( str(datetime.datetime.now()) + ' : Setting fan to {0}'.format(fan_speed) )
+        mr.wakeup()
         mr.fan(fan_speed)
         sleep_check( time_on, 1, stop )
 
@@ -81,6 +78,7 @@ def main(time_on, time_off, fan_speed, stop = lambda: False):
         # set fan off for 50 minutes
         print( str(datetime.datetime.now()) + ' : Setting fan to off' )
         mr.fan_off()
+        mr.sleep()
         sleep_check( time_off, 1, stop )
 
         # after waking from sleep, see if we should stop
@@ -90,12 +88,14 @@ def main(time_on, time_off, fan_speed, stop = lambda: False):
 
         # repeat, etc.
 
+
 def main_file(filename, stop):
     """
     run the main with a filename argument
     """
     time_on, time_off, fan_speed = parse_file(filename)
     main(time_on, time_off, fan_speed, stop = stop)
+
 
 def parse_file(filename):
     with open(filename) as f:
@@ -105,7 +105,7 @@ def parse_file(filename):
     return time_on, time_off, fan_speed
 
     
-if __name__=='__main__':
+if __name__ == '__main__':
 
     args = docopt(__doc__)
 

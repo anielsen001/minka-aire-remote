@@ -57,8 +57,8 @@
   </br>
   </br>
 
-    <select class="form-control" id="fan" name="Mode">
-      <option value="LOW">Low Speed</option>
+    <select class="form-control" id="fan" name="Mode" type="submit">
+      <option value={{ fan_status["Mode"][0] }}>{{ fan_status["Mode"][0] }}</option>
       <option value="HIGH">High Speed</option>
       <option value="MED">Med Speed</option>
       <option value="LOW">Low Speed</option>

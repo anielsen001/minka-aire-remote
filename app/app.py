@@ -10,6 +10,8 @@ import minka_remote
 
 app = Flask(__name__)
 keys = ['Mode','on_for','off_for']
+fan_status_file = "/home/pi/proj/minka-aire-remote/fan_status.txt"
+stop_thread=True
 
 def test(h, stop):
     while True:
@@ -44,11 +46,12 @@ def main():
     try:
         fan_status = opendata()
     except:
-        fan_status={'on_for':"",'off_for':"","Mode":["TBD"]}
+        fan_status={'on_for':"0",'off_for':"30","Mode":["OFF"]}
+        savedata(fan_status)
     return render_template('main.html', fan_status=fan_status)
 
 
-def savedata(fan_status={}, outdata='fan_status.txt'):
+def savedata(fan_status={}, outdata=fan_status_file):
     with open(outdata,'w') as f:
         for key in keys:
             try:
@@ -59,15 +62,13 @@ def savedata(fan_status={}, outdata='fan_status.txt'):
     #Done with writing
 
 
-def opendata(fan_status={}, outdata='fan_status.txt'):
+def opendata(fan_status={}, outdata=fan_status_file):
     with open(outdata, 'r') as f:
         for k in keys:
             fan_status[k]=[f.readline()]
     return fan_status
 
 
-stop_thread=True
-#at = threading.Thread(target=test, args=("Test",lambda : stop_thread) )
 
 @app.route("/", methods=['POST'])
 def main_button():
@@ -79,12 +80,11 @@ def main_button():
     savedata(button)
     print(button)
     if  'on_forBtn' in button:
-        #fan_status = mfam.get_sensor_status()
-
-        a = 5
+    	# To Do 
+    	turn_light_on = True
     elif 'off_forBtn' in button:
-        #mfam_status = mfam.get_mfam_status()
-
+    	# TODO
+        turn_light_on = False
         message = "Please send data"
         print(message)
     try:
@@ -92,9 +92,9 @@ def main_button():
         at.join()
     except:
         print("No thread")
-    stop_thread = False
     # Fan Threading
-    at = threading.Thread(target=minka_remote.main_file, args=('fan_status.txt',lambda : stop_thread))
+    stop_thread = False
+    at = threading.Thread(target=minka_remote.main_file, args=(fan_status_file, lambda : stop_thread))
     at.start()
     return render_template('main.html', fan_status=fan_status)
 
