@@ -5,15 +5,15 @@ import time
 def create_relay( relay_pin ):
     """ create a relay object from the gpiozero module """
     return gpiozero.OutputDevice( relay_pin,
-                                  active_high = False,
-                                  initial_value = False )
+                                  active_high=False,
+                                  initial_value=False )
 
 
 class MinkaAireRemote( object ):
-
+    # Fan Light
     LIGHT_UP_GPIO_PIN = 18
     LIGHT_DOWN_GPIO_PIN = 19
-    
+    # Fan Speed
     FAN_LOW_GPIO_PIN = 20
     FAN_MED_GPIO_PIN = 21
     FAN_HIGH_GPIO_PIN = 22
@@ -21,11 +21,9 @@ class MinkaAireRemote( object ):
     FAN_DIR_GPIO_PIN = 24
 
     UNIT_SELECT_GPIO_PIN = 25
-
-    PUSH_BUTTON_TIME = 0.5 # seconds
+    PUSH_BUTTON_TIME = 0.5  # seconds
     
     def __init__( self, *args, **kwargs):
-
         # create relay object for each button to toggle
         self.light_up_relay = create_relay( self.LIGHT_UP_GPIO_PIN )
         self.light_down_relay = create_relay( self.LIGHT_DOWN_GPIO_PIN )
@@ -72,7 +70,7 @@ class MinkaAireRemote( object ):
         """
         self.push_button( self.fan_high_relay )
 
-    def fan(self,state):
+    def fan(self, state):
         """
         change the state of the fan
         
@@ -95,5 +93,33 @@ class MinkaAireRemote( object ):
             self.fan_high()
         else:
             raise ValueError()
+      
+    def sleep(self):
+        # create relay object for each button to toggle
+        self.light_up_relay.close()
+        self.light_down_relay.close()
+        self.fan_low_relay.close()
+        self.fan_med_relay.close()
+        self.fan_high_relay.close()
+        self.fan_off_relay.close()
+        self.fan_direction_relay.close()
+        self.unit_select_relay.close()
+
+    def wakeup(self):
+        try:
+            self.light_up_relay = create_relay(self.LIGHT_UP_GPIO_PIN)
+            self.light_down_relay = create_relay(self.LIGHT_DOWN_GPIO_PIN)
+            self.fan_low_relay = create_relay(self.FAN_LOW_GPIO_PIN)
+            self.fan_med_relay = create_relay(self.FAN_MED_GPIO_PIN)
+            self.fan_high_relay = create_relay(self.FAN_HIGH_GPIO_PIN)
+            self.fan_off_relay = create_relay(self.FAN_OFF_GPIO_PIN)
+            self.fan_direction_relay = create_relay(self.FAN_DIR_GPIO_PIN)
+            self.unit_select_relay = create_relay(self.UNIT_SELECT_GPIO_PIN)
+        except:
+            print("Already awake")
+
+	
+
+
 
         
