@@ -1,24 +1,33 @@
-from flask import Flask, render_template, Response, request
+from flask import Flask, render_template, Response, request, session
 import sys
 import os
 import threading
 import time
 import logging
 import socket
-
+import pickle
 import minka_remote
 
 app = Flask(__name__)
-keys = ['Mode','on_for','off_for']
-fan_status_file = "/home/pi/proj/minka-aire-remote/fan_status.txt"
-stop_thread=True
+
+fan_status_file = "/home/pi/proj/minka-aire-remote/fan_status.pickle"
+stop_thread = True
+PERMANENT_SESSION_LIFETIME = 180
+
+
+@app.route('/popsession')
+def popsession():
+    session.pop('Username', None)
+    return "Session Deleted"
+
 
 def test(h, stop):
     while True:
         time.sleep(.5)
-        print("Now on ",h)
+        print("Now on ", h)
         if stop():
             break
+
 
 def get_ip():
     """
@@ -41,33 +50,27 @@ def get_ip():
         s.close()
     return IP
 
+
 @app.route("/")
 def main():
-    try:
-        fan_status = opendata()
-    except:
-        fan_status={'on_for':"0",'off_for':"30","Mode":["OFF"]}
-        savedata(fan_status)
+    fan_status = opendata()
     return render_template('main.html', fan_status=fan_status)
 
 
 def savedata(fan_status={}, outdata=fan_status_file):
-    with open(outdata,'w') as f:
-        for key in keys:
-            try:
-                value = fan_status[key][0]
-            except:
-                value = ""
-            f.write(str(value)+"\n")
-    #Done with writing
+    keys = ['Mode', 'on_for', 'off_for', 'change_fan', 'change_light', 'light']
+    with open(outdata, 'wb') as f_pickle:
+        pickle.dump(fan_status, f_pickle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 def opendata(fan_status={}, outdata=fan_status_file):
-    with open(outdata, 'r') as f:
-        for k in keys:
-            fan_status[k]=[f.readline()]
+    try:
+        with open(outdata, 'rb') as f_pickle:
+            fan_status = pickle.load(f_pickle)
+    except FileNotFoundError:
+        fan_status = {'on_for': "0", 'off_for': "30", "fan_mode": "OFF"}
+        savedata(fan_status)
     return fan_status
-
 
 
 @app.route("/", methods=['POST'])
@@ -76,17 +79,22 @@ def main_button():
     global stop_thread
     #print(request.form)
     button = request.form.to_dict(flat=False)
-    fan_status = button
-    savedata(button)
+    fan_status = opendata()
+    fan_status["change_fan"] = False
+    fan_status['change_light'] = False
     print(button)
-    if  'on_forBtn' in button:
-    	# To Do 
-    	turn_light_on = True
-    elif 'off_forBtn' in button:
-    	# TODO
-        turn_light_on = False
-        message = "Please send data"
-        print(message)
+    if 'light_on' in button:
+        fan_status['change_light'] = True
+        fan_status["light"] = True
+    elif 'light_off' in button:
+        fan_status['change_light'] = True
+        fan_status["light"] = False
+    elif "fan_modebtn" in button:
+        fan_status['change_fan'] = True
+        fan_status['on_for'] = button['on_for'][0]
+        fan_status['off_for'] = button['off_for'][0]
+        fan_status['fan_mode'] = button['fan_mode'][0]
+    savedata(fan_status)
     try:
         stop_thread = True
         at.join()

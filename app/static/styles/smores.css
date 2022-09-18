@@ -109,14 +109,54 @@ select {
     border-radius: 15px;
     box-shadow: 0 5px #999;
     align-items: flex-end;
+    min-width: 2em;
   }
 
 select:hover {background-color: #6194bb}
 
+div {
+  margin-bottom: 4em;
+  overflow: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input {
+  font-family: arial, sans-serif;
+  font-size: 2.5em;
+  border-collapse: collapse;
+  width: 40%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 5px;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+
+}
+
+select.widthHeight::-webkit-scrollbar {
+  width: 40px;
+  height: 3em;
+}
+
+select.style::-webkit-scrollbar-track {
+  border: rgb(180, 180, 180);
+  background-color: #ff6536;
+}
+
+select.style::-webkit-scrollbar-thumb {
+  background-color: #3677ef;
+  border: 5px solid rgb(193, 193, 193);
+}
 
 button {
-      padding: 5px 10px;
-      font-size: 3.1cem;
+      padding: 3px 10px;
+      margin-top: 0.5em;
+      font-size: 3.1em;
       text-align: center;
       cursor: pointer;
       outline: none;
@@ -126,6 +166,8 @@ button {
       border-radius: 15px;
       box-shadow: 0 5px #999;
       align-items: flex-end;
+      min-width: 5em;
+      
   }
 
 button:hover {background-color: #6194bb}
@@ -140,14 +182,6 @@ button:active {
    * Table
  *********************************************/
 
- input {
-     font-family: arial, sans-serif;
-     font-size: 2.5em;
-     border-collapse: collapse;
-     width: 40%;
-     margin-left: 10%;
-     margin-right: 10%;
-   }
 
 table {
     font-family: arial, sans-serif;

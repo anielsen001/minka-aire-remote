@@ -4,6 +4,7 @@ from minka_remote import MinkaAireRemote
 
 import datetime
 
+
 def getTimeStr():
     now = datetime.datetime.now()
     timeString = now.strftime("%Y-%m-%d %H:%M")
@@ -14,6 +15,7 @@ mr = MinkaAireRemote()
 
 # create the app
 app = Flask(__name__)
+
 
 @app.route('/')
 def main():

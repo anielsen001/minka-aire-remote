@@ -26,17 +26,17 @@
 
 {% else %}
   <table>
-    {% set keys_to_display = ["Mode", "on_for", "off_for"] %}
+    {% set keys_to_display = ["fan_mode", "on_for", "off_for"] %}
     {% for key in  keys_to_display  %}
     <tr>
           <th> {{ key }} </th>
-            <th> {{ fan_status[key][0] }} </td>
+            <th> {{ fan_status[key] }} </td>
     </tr>
     {% endfor %}
   </table>
   </br>
 
-  <form id="package_form" action="/" method="post">
+  <form id="fan_form" action="/" method="post">
     <h4> Fan On / Off cycle in Minutes </h4>
     <table>
       {% if fan_status["on_for"] == ""  %}
@@ -46,31 +46,34 @@
 
       {% else %}
           <tr>
-              <th><input type = "text" name = "on_for" value={{ fan_status["on_for"][0] }} hint = "Enter number of minutes"/></th>
-              <td><input type = "text" name = "off_for" value={{ fan_status["off_for"][0] }} hint = "Enter number of minutes"/></td>
+              <th><input class="style widthHeight" type = "number" name = "on_for" placeholder= {{ fan_status["on_for"] }} hint = "Enter number of minutes" step="2"
+                  min="0", max="60"/></th>
+              <td><input class="style widthHeight" type = "number" name = "off_for" placeholder= {{ fan_status["off_for"] }} hint = "Enter number of minutes"
+                  step="5" min="0", max="60"/></td>
 
       {% endif %}
         </tr>
       </table>
 
-
   </br>
   </br>
 
-    <select class="form-control" id="fan" name="Mode" type="submit">
-      <option value={{ fan_status["Mode"][0] }}>{{ fan_status["Mode"][0] }}</option>
+    <select class="form-control" id="fan" name="fan_mode" type="submit">
+      <option value={{ fan_status["fan_mode"] }}>{{ fan_status["fan_mode"] }}</option>
       <option value="HIGH">High Speed</option>
       <option value="MED">Med Speed</option>
       <option value="LOW">Low Speed</option>
       <option value="OFF">Fan OFF</option>
   </select>
   </br>
-
-
-  </br>
-    <button name="Light On" type="submit">Light On / Submit</button>
-    <button name="Light Off" type="submit">Light Off / Submit</button>
+       <button name="fan_modebtn" type="submit">Set Fan Speed</button>
   </form>
+
+  <form id="light_form" action="/" method="post">
+  </br>
+    <button name="light_on" type="submit">Light On</button>
+    <button name="light_off" type="submit">Light Off</button>
+ </form>
 
 {% endif %}
 

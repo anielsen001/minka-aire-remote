@@ -5,15 +5,15 @@ import time
 def create_relay( relay_pin ):
     """ create a relay object from the gpiozero module """
     return gpiozero.OutputDevice( relay_pin,
-                                  active_high = False,
-                                  initial_value = False )
+                                  active_high=False,
+                                  initial_value=False )
 
 
 class MinkaAireRemote( object ):
-
+    # Fan Light
     LIGHT_UP_GPIO_PIN = 18
     LIGHT_DOWN_GPIO_PIN = 19
-    
+    # Fan Speed
     FAN_LOW_GPIO_PIN = 20
     FAN_MED_GPIO_PIN = 21
     FAN_HIGH_GPIO_PIN = 22
@@ -21,8 +21,7 @@ class MinkaAireRemote( object ):
     FAN_DIR_GPIO_PIN = 24
 
     UNIT_SELECT_GPIO_PIN = 25
-
-    PUSH_BUTTON_TIME = 0.5 # seconds
+    PUSH_BUTTON_TIME = 0.5  # seconds
     
     def __init__( self, *args, **kwargs):
         # create relay object for each button to toggle
